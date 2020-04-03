@@ -269,6 +269,13 @@ std::vector<uint8_t> GetInputFromImage(const std::string& image_path,
   return result;
 }
 
+std::vector<uint8_t> GetInputFromImageData(const uint8_t *data, const ImageDims &image_dims,
+                                           const ImageDims &target_dims) {
+  std::vector<uint8_t> result(ImageDimsToSize(target_dims));
+  ResizeImage(image_dims, data, target_dims, result.data());
+  return result;
+}
+
 void TestWithRandomInput(const RandomInputTestParams& test_params) {
   TestWithRandomInput(test_params.model_path,
                       test_params.expected_num_output_tensors);
